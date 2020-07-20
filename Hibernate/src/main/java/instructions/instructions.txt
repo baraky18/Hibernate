@@ -1,0 +1,18 @@
+Setup:
+1. download the latest hibernate release bundle and put it in a hibernate folder in your PC.
+2. download some DB (in my case postgresql). (user name: "postgres", password: "password", port: 5432)
+3. download postgresql jdbc driver and add it to the project.
+4. download the Postgresql folder to your PC. in my case it's located in: C:\Program Files (x86)\PostgreSQL.
+5. to create the connection to the db we need to create a file with a specific name which is: "hibernate.cfg.xml" under resources folder 
+   in our project. to fill this file, we need to go to hibernate folder and look for other files with the same name 
+   and copy the content of one of them to the file that we created.
+6. in the file that we created, modify DB connection settings and SQL dialect properties.
+7. go to pgadmin (which is the postgresql admin) and create db with the same name that mentioned in the above file.
+8. to make sure that DB will not be create each time I open a session and commit objects and thus delete all of the data I committed
+   till that point, we need to go to the xml and change property hbm2ddl.auto to update. 
+
+Add table and columns:
+1. create a dto model (Object) and annotate the class with @Entity (from javax.persistence)
+2. annotate one field as ID with @Id (from javax.persistence)
+3. define this dto in hibernate.cfg.xml file under mapping element
+4. create session factory that will create a session that will hold transaction that will save the dto and close the transaction
