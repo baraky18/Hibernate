@@ -34,5 +34,9 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="dto.UserDetails"/>
+        <mapping class="dto.Vehicle"/>
+        <mapping class="dto.Pet"/>
+        <mapping class="dto.UserProfile"/>
+        <mapping class="dto.RentedHouse"/>
     </session-factory>
 </hibernate-configuration>

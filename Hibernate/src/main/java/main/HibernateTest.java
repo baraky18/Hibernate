@@ -13,7 +13,11 @@ import org.hibernate.cfg.Configuration;
 import dto.Address;
 import dto.ContactDetails;
 import dto.EmployeeDetails;
+import dto.Pet;
+import dto.RentedHouse;
 import dto.UserDetails;
+import dto.UserProfile;
+import dto.Vehicle;
 
 public class HibernateTest {
 
@@ -57,14 +61,50 @@ public class HibernateTest {
 		listOfEmployeeDetails.add(secondEmployee);
 		user.setListOfEmployeeDetails(listOfEmployeeDetails);
 		
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVehicleName("Car");
+		user.setVehicle(vehicle);
+		
+		Pet firstPet = new Pet();
+		firstPet.setPetType("Dog");
+		Pet secondPet = new Pet();
+		secondPet.setPetType("Cat");
+		Collection<Pet> pets = new ArrayList<Pet>();
+		pets.add(firstPet);
+		pets.add(secondPet);
+		user.setPet(pets);
+		
+		UserProfile profile = new UserProfile();
+		profile.setProfileName("manager profile");
+		user.setUserProfile(profile);
+		
+		RentedHouse firstHouse = new RentedHouse();
+		firstHouse.setHouseName("first house");
+		RentedHouse secondHouse = new RentedHouse();
+		secondHouse.setHouseName("second house");
+		Collection<RentedHouse> rentedHouses = new ArrayList<RentedHouse>();
+		rentedHouses.add(firstHouse);
+		rentedHouses.add(secondHouse);
+		user.setRentedHouses(rentedHouses);
+		
 		/*
 		 * to create a table and to push data into it, we need to create a session factory that will create a session
-		 * that will begin new transaction and we will be able to commit the new object in to it
+		 * that will begin new transaction and we will be able to save the new object and commit the new object in to it
 		 */
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(user);
+		/*
+		 * I am using persist method and not save in order to save also the related pets of the user. this will be done
+		 * after I set a cascade property to the pet list inside UserDetails class 
+		 */
+		session.persist(user);
+		session.save(vehicle);
+//		session.save(firstPet);
+//		session.save(secondPet);
+		session.save(profile);
+		session.save(firstHouse);
+		session.save(secondHouse);
 		session.getTransaction().commit();
 		session.close();
 		
