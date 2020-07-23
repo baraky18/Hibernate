@@ -1,4 +1,4 @@
-package dto;
+package dto.embeddedobjects.differenttable.withid;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -7,15 +7,15 @@ import javax.persistence.Embeddable;
  * in order for this object to be in a separate table, we must annotate it with @Embeddable
  */
 @Embeddable
-public class ContactDetails {
+public class EmployeeDetails {
 
-	@Column(name="CONTACT_NAME")
+	@Column(name="EMPLOYEE_NAME")
 	private String name;
 	
-	@Column(name="CONTACT_EMAIL")
+	@Column(name="EMPLOYEE_EMAIL")
 	private String email;
 	
-	@Column(name="CONTACT_PHONE")
+	@Column(name="EMPLOYEE_PHONE")
 	private String phone;
 
 	public String getName() {

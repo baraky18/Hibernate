@@ -1,4 +1,4 @@
-package dto;
+package dto.entity.manytomany;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import dto.entity.mainentity.UserDetails;
 
 @Entity(name="RENTED_HOUSE")
 public class RentedHouse {

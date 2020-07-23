@@ -1,4 +1,4 @@
-package dto;
+package dto.entity.mainentity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +33,17 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 //import javax.persistence.Table;
+
+import dto.entity.inheritance.onetable.ElectronicDevice;
+import dto.entity.inheritance.separatetables.ReadMaterial;
+import dto.entity.manytomany.RentedHouse;
+import dto.entity.manytoone.UserProfile;
+import dto.entity.onetomany.Pet;
+import dto.entity.onetoone.Vehicle;
+import dto.embeddedobjects.sametable.Address;
+import dto.embeddedobjects.differenttable.withid.EmployeeDetails;
+import dto.embeddedobjects.differenttable.withoutid.ContactDetails;
+
 
 /*
  * Entity is object-oriented and table is relation-oriented. You can only use the entity name in the HQL (Hibernate Query Language) 
@@ -150,6 +161,18 @@ public class UserDetails {
 	@JoinTable(name="USERS_RENTED_HOUSES", joinColumns=@JoinColumn(name="USER_ID"), inverseJoinColumns=@JoinColumn(name="RENTED_HOUSE_ID"))
 	private Collection<RentedHouse> rentedHouses = new ArrayList<RentedHouse>();
 	
+	/*
+	 * explanation of single table inheritance in the ElectronicDevice class
+	 */
+	@OneToMany
+	private Collection<ElectronicDevice> electronicDevices = new ArrayList<ElectronicDevice>();
+	
+	/*
+	 * explanation of separate table inheritance in the ReadMaterial class
+	 */
+	@OneToMany
+	private Collection<ReadMaterial> readMaterials = new ArrayList<ReadMaterial>();
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -227,5 +250,17 @@ public class UserDetails {
 	}
 	public void setRentedHouses(Collection<RentedHouse> rentedHouses) {
 		this.rentedHouses = rentedHouses;
+	}
+	public Collection<ElectronicDevice> getElectronicDevices() {
+		return electronicDevices;
+	}
+	public void setElectronicDevices(Collection<ElectronicDevice> electronicDevices) {
+		this.electronicDevices = electronicDevices;
+	}
+	public Collection<ReadMaterial> getReadMaterials() {
+		return readMaterials;
+	}
+	public void setReadMaterials(Collection<ReadMaterial> readMaterials) {
+		this.readMaterials = readMaterials;
 	}
 }

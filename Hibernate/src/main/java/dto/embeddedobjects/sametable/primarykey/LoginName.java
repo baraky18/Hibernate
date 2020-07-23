@@ -1,4 +1,4 @@
-package dto;
+package dto.embeddedobjects.sametable.primarykey;
 
 import javax.persistence.Column;
 

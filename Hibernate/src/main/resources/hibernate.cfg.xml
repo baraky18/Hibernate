@@ -33,10 +33,16 @@
         <property name="hbm2ddl.auto">create</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="dto.UserDetails"/>
-        <mapping class="dto.Vehicle"/>
-        <mapping class="dto.Pet"/>
-        <mapping class="dto.UserProfile"/>
-        <mapping class="dto.RentedHouse"/>
+        <mapping class="dto.entity.mainentity.UserDetails"/>
+        <mapping class="dto.entity.onetoone.Vehicle"/>
+        <mapping class="dto.entity.onetomany.Pet"/>
+        <mapping class="dto.entity.manytoone.UserProfile"/>
+        <mapping class="dto.entity.manytomany.RentedHouse"/>
+        <mapping class="dto.entity.inheritance.onetable.ElectronicDevice"/>
+        <mapping class="dto.entity.inheritance.onetable.SmartPhone"/>
+        <mapping class="dto.entity.inheritance.onetable.Desktop"/>
+        <mapping class="dto.entity.inheritance.separatetables.ReadMaterial"/>
+        <mapping class="dto.entity.inheritance.separatetables.Book"/>
+        <mapping class="dto.entity.inheritance.separatetables.Magazine"/>
     </session-factory>
 </hibernate-configuration>

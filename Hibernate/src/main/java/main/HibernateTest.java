@@ -10,14 +10,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import dto.Address;
-import dto.ContactDetails;
-import dto.EmployeeDetails;
-import dto.Pet;
-import dto.RentedHouse;
-import dto.UserDetails;
-import dto.UserProfile;
-import dto.Vehicle;
+import dto.embeddedobjects.sametable.Address;
+import dto.embeddedobjects.differenttable.withoutid.ContactDetails;
+import dto.embeddedobjects.differenttable.withid.EmployeeDetails;
+import dto.entity.onetomany.Pet;
+import dto.entity.manytomany.RentedHouse;
+import dto.entity.inheritance.onetable.Desktop;
+import dto.entity.inheritance.onetable.ElectronicDevice;
+import dto.entity.inheritance.onetable.SmartPhone;
+import dto.entity.inheritance.separatetables.Book;
+import dto.entity.inheritance.separatetables.Magazine;
+import dto.entity.inheritance.separatetables.ReadMaterial;
+import dto.entity.mainentity.UserDetails;
+import dto.entity.manytoone.UserProfile;
+import dto.entity.onetoone.Vehicle;
 
 public class HibernateTest {
 
@@ -87,6 +93,35 @@ public class HibernateTest {
 		rentedHouses.add(secondHouse);
 		user.setRentedHouses(rentedHouses);
 		
+		ElectronicDevice someDevice = new ElectronicDevice();
+		someDevice.setColor("green");
+		ElectronicDevice phone = new SmartPhone();
+		phone.setColor("black");
+		((SmartPhone)phone).setPhoneNumber(123);
+		ElectronicDevice pc = new Desktop();
+		pc.setColor("grey");
+		((Desktop)pc).setScreensNumber(2);
+		Collection<ElectronicDevice> listOfDevices = new ArrayList<ElectronicDevice>();
+		listOfDevices.add(someDevice);
+		listOfDevices.add(phone);
+		listOfDevices.add(pc);
+		user.setElectronicDevices(listOfDevices);
+		
+		
+		ReadMaterial readMaterial = new ReadMaterial();
+		readMaterial.setReadMaterialName("some read material");
+		ReadMaterial book = new Book();
+		book.setReadMaterialName("Gone with the wind");
+		((Book)book).setAuthor("don't remember");
+		ReadMaterial magazine = new Magazine();
+		magazine.setReadMaterialName("Laisha");
+		((Magazine)magazine).setEditor("someone");
+		Collection<ReadMaterial> readMaterials = new ArrayList<ReadMaterial>();
+		readMaterials.add(readMaterial);
+		readMaterials.add(book);
+		readMaterials.add(magazine);
+		user.setReadMaterials(readMaterials);
+		
 		/*
 		 * to create a table and to push data into it, we need to create a session factory that will create a session
 		 * that will begin new transaction and we will be able to save the new object and commit the new object in to it
@@ -105,6 +140,19 @@ public class HibernateTest {
 		session.save(profile);
 		session.save(firstHouse);
 		session.save(secondHouse);
+		session.save(someDevice);
+		session.save(phone);
+		session.save(pc);
+		session.save(readMaterial);
+		session.save(book);
+		session.save(magazine);
+		
+		//this is how to update an entity
+		user.setUserName("Updated user");
+		session.update(user);
+		//this is how to delete an entity
+//		session.delete(user);
+		
 		session.getTransaction().commit();
 		session.close();
 		

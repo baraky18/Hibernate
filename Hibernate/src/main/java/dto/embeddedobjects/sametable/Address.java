@@ -1,4 +1,4 @@
-package dto;
+package dto.embeddedobjects.sametable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
