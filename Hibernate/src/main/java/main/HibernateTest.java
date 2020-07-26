@@ -124,7 +124,7 @@ public class HibernateTest {
 		
 		/*
 		 * to create a table and to push data into it, we need to create a session factory that will create a session
-		 * that will begin new transaction and we will be able to save the new object and commit the new object in to it
+		 * that will begin new transaction and we will be able to save the new object and commit the new object in to it.
 		 */
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -146,12 +146,6 @@ public class HibernateTest {
 		session.save(readMaterial);
 		session.save(book);
 		session.save(magazine);
-		
-		//this is how to update an entity
-		user.setUserName("Updated user");
-		session.update(user);
-		//this is how to delete an entity
-//		session.delete(user);
 		
 		session.getTransaction().commit();
 		session.close();

@@ -16,3 +16,16 @@ Add table and columns:
 2. annotate one field as ID with @Id (from javax.persistence)
 3. define this dto in hibernate.cfg.xml file under mapping element
 4. create session factory that will create a session that will hold transaction that will save the dto and close the transaction
+
+Hibernate provides 2 levels of cache.
+1. in the session itself. meaning, for example, when I am opening a session and doing a select query and then update and then select query again.
+   there will be only one select query that's executed since the data is cached in session. if I will close the above session and 
+   open a new session and perform a select query, two select queries will be executed.
+2. second level cache - resolves the above case.
+   a. we need to configure it in hibernate.cfg in element hibernate.cache.region.factory_class 
+      to "org.hibernate.cache.ehcache.EhCacheRegionFactory". 
+   b. we need to tell Hibernate to switch the second level cache, we do that by adding an element "cache.use_second_level_cache": true.
+   c. we need to add dependencies to maven: hibernate-ehcache and ehcache-core
+   d. we need to configure the required entity to be cacheable we do that by adding the @Cacheable annotation.
+   e. we need to add the caching strategy by adding @Cache(usage=CacheConcurrencyStrategy.READ_ONLY) so Hibernate will know
+      how to cache the object   

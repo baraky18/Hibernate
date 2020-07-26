@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -21,12 +22,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
@@ -51,6 +55,9 @@ import dto.embeddedobjects.differenttable.withoutid.ContactDetails;
  */
 @Entity(name="USER_DETAILS") //equals to table, yet the entity name has a new name
 //@Table(name="USER_DETAILS") //also equals to table, yet the only the table name has a new name
+@NamedNativeQuery(name="UserDetails.byName", query="select * from user_details where user_name = ?", resultClass=UserDetails.class) // explanation in QueryTest class
+@Cacheable //explanation in instructions.txt
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY) //explanation in instructions.txt
 public class UserDetails {
 
 	@Id @GeneratedValue //@Id is equal to primary key, @GeneratedValue will generate the id for each record
